@@ -1,3 +1,3 @@
 class Constants {
-  static const double bookBorderRadius = 20;
+  static const double bookBorderRadius = 25;
 }

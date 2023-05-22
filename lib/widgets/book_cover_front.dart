@@ -14,12 +14,6 @@ class BookCoverFront extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(
-        top: 20,
-        bottom: 20,
-        left: 20,
-        right: 10,
-      ),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(Constants.bookBorderRadius),
@@ -35,9 +29,38 @@ class BookCoverFront extends StatelessWidget {
         ],
       ),
       alignment: Alignment.center,
-      child: Avatar(
-        imageUrl: listing.landlordAvatarUrl,
-        size: 140,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            width: 15,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 3,
+                  offset: const Offset(3, 0),
+                ),
+              ],
+              gradient: LinearGradient(
+                colors: [
+                  Colors.grey.shade200,
+                  Colors.grey.shade50,
+                  Colors.grey.shade200,
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Avatar(
+                imageUrl: listing.landlordAvatarUrl,
+                size: 120,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
