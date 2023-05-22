@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_airbnb_ui/models/listing.dart';
+import 'package:flutter_airbnb_ui/pages/listing_page.dart';
 import 'package:flutter_airbnb_ui/widgets/book_flip.dart';
 
 class ListingItem extends StatelessWidget {
@@ -19,24 +20,62 @@ class ListingItem extends StatelessWidget {
         children: [
           SizedBox(
             height: 300,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      listing.coverUrl,
-                      fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 500),
+                    reverseTransitionDuration:
+                        const Duration(milliseconds: 500),
+                    pageBuilder:
+                        (BuildContext context, Animation<double> animation, _) {
+                      return ListingPage(listing);
+                    },
+                    transitionsBuilder: (BuildContext context,
+                        Animation<double> animation, _, Widget child) {
+                      final offsetAnimation = Tween<Offset>(
+                        begin: const Offset(0, 1),
+                        end: const Offset(0, 0),
+                      ).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOut,
+                        ),
+                      );
+
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    },
+                    opaque: false,
+                    barrierDismissible: true,
+                    barrierColor: Colors.black.withOpacity(0.5),
+                  ),
+                );
+              },
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        listing.coverUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 25,
-                  left: 25,
-                  right: 0,
-                  child: BookFlip(listing),
-                ),
-              ],
+                  Positioned(
+                    bottom: 25,
+                    left: 25,
+                    right: 0,
+                    child: Hero(
+                      tag: 'listing_hero_${listing.id}',
+                      child: BookFlip(listing),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 10),

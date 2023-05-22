@@ -1,5 +1,6 @@
 class Listing {
   const Listing({
+    required this.id,
     required this.coverUrl,
     required this.landlordAvatarUrl,
     required this.landlordName,
@@ -11,6 +12,7 @@ class Listing {
     required this.price,
   });
 
+  final int id;
   final String coverUrl;
   final String landlordAvatarUrl;
   final String landlordName;

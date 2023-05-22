@@ -2,8 +2,9 @@ import 'package:flutter_airbnb_ui/models/listing.dart';
 
 const listings = [
   Listing(
+    id: 1,
     coverUrl: 'assets/images/listing-1.jpg',
-    landlordAvatarUrl: 'assets/images/person-3.jpeg',
+    landlordAvatarUrl: 'assets/images/person-1.jpeg',
     landlordName: 'John',
     title: 'Bright apartment in vibrant neighborhood',
     address: 'Berlin, Germany',
@@ -13,8 +14,9 @@ const listings = [
     price: 98,
   ),
   Listing(
+    id: 2,
     coverUrl: 'assets/images/listing-2.jpg',
-    landlordAvatarUrl: 'assets/images/person-2.jpeg',
+    landlordAvatarUrl: 'assets/images/person-3.jpeg',
     landlordName: 'Jane',
     title: 'Quiet apartment outside the city',
     address: 'Paris, France',
@@ -24,8 +26,9 @@ const listings = [
     price: 120,
   ),
   Listing(
+    id: 3,
     coverUrl: 'assets/images/listing-3.jpg',
-    landlordAvatarUrl: 'assets/images/person-2.jpeg',
+    landlordAvatarUrl: 'assets/images/person-1.jpeg',
     landlordName: 'Jane',
     title: 'Quiet apartment outside the city',
     address: 'Paris, France',
@@ -35,6 +38,7 @@ const listings = [
     price: 120,
   ),
   Listing(
+    id: 4,
     coverUrl: 'assets/images/listing-4.jpg',
     landlordAvatarUrl: 'assets/images/person-2.jpeg',
     landlordName: 'Jane',
@@ -46,8 +50,9 @@ const listings = [
     price: 120,
   ),
   Listing(
+    id: 5,
     coverUrl: 'assets/images/listing-5.jpg',
-    landlordAvatarUrl: 'assets/images/person-2.jpeg',
+    landlordAvatarUrl: 'assets/images/person-1.jpeg',
     landlordName: 'Jane',
     title: 'Quiet apartment outside the city',
     address: 'Paris, France',
@@ -57,8 +62,9 @@ const listings = [
     price: 120,
   ),
   Listing(
+    id: 6,
     coverUrl: 'assets/images/listing-6.jpg',
-    landlordAvatarUrl: 'assets/images/person-2.jpeg',
+    landlordAvatarUrl: 'assets/images/person-3.jpeg',
     landlordName: 'Jane',
     title: 'Quiet apartment outside the city',
     address: 'Paris, France',
