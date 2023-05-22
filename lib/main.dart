@@ -8,10 +8,36 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isInit = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      for (var i = 1; i <= 6; i++) {
+        precacheImage(
+          Image.asset('assets/images/listing-$i.jpg').image,
+          context,
+        );
+      }
+      for (var i = 1; i <= 3; i++) {
+        precacheImage(
+          Image.asset('assets/images/person-$i.jpeg').image,
+          context,
+        );
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

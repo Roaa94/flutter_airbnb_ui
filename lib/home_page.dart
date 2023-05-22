@@ -12,31 +12,22 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: BookFlip(
-              listing: listings[0],
+        bottom: false,
+        child: Column(
+          children: [
+            const SearchField(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: listings.length,
+                padding: const EdgeInsets.all(20),
+                itemBuilder: (context, index) => ListingItem(
+                  listing: listings[index],
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
-      // body: SafeArea(
-      //   child: Column(
-      //     children: [
-      //       const SearchField(),
-      //       Expanded(
-      //         child: ListView.builder(
-      //           itemCount: listings.length,
-      //           padding: const EdgeInsets.all(20),
-      //           itemBuilder: (context, index) => ListingItem(
-      //             listing: listings[index],
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

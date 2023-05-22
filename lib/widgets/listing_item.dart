@@ -14,6 +14,7 @@ class ListingItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 300,
@@ -25,6 +26,63 @@ class ListingItem extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                listing.address,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.star_rounded, size: 18),
+                  Text(
+                    listing.rating.toString(),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              )
+            ],
+          ),
+          const SizedBox(height: 5),
+          Text(
+            listing.title,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black.withOpacity(0.5),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            listing.availability,
+            style: TextStyle(
+              color: Colors.black.withOpacity(0.5),
+            ),
+          ),
+          const SizedBox(height: 5),
+          RichText(
+            text: TextSpan(
+              text: '\$${listing.price}',
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+              ),
+              children: const <TextSpan>[
+                TextSpan(
+                  text: ' night',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
