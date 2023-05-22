@@ -1,88 +1,84 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_airbnb_ui/models/listing.dart';
-import 'package:flutter_airbnb_ui/widgets/avatar.dart';
-import 'package:flutter_airbnb_ui/widgets/landlord_info.dart';
+import 'package:flutter_airbnb_ui/widgets/book_back.dart';
+import 'package:flutter_airbnb_ui/widgets/book_cover_back.dart';
+import 'package:flutter_airbnb_ui/widgets/book_cover_front.dart';
 
-class BookFlip extends StatelessWidget {
+class BookFlip extends StatefulWidget {
   const BookFlip({
     super.key,
     required this.listing,
   });
 
   final Listing listing;
-  static const double radius = 20;
+
+  @override
+  State<BookFlip> createState() => _BookFlipState();
+}
+
+class _BookFlipState extends State<BookFlip>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
+  double _sliderValue = 0;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 220),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(
-                  top: 20, bottom: 20, left: 20, right: 10),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(radius),
-                  bottomLeft: Radius.circular(radius),
-                ),
-                color: Colors.white,
+    return Column(
+      children: [
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 220),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            textDirection: TextDirection.rtl,
+            children: [
+              Expanded(
+                child: BookBack(widget.listing),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
+              Expanded(
+                child: Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..rotateY(-pi * _sliderValue),
+                  alignment: Alignment.centerRight,
+                  child: Stack(
                     children: [
-                      Avatar(
-                        imageUrl: listing.landlordAvatarUrl,
-                        hasBadge: true,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        listing.landlordName,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
+                      Positioned.fill(
+                        child: Transform(
+                          transform: Matrix4.identity()
+                            ..setEntry(3, 2, 0.001)
+                            ..rotateY(-pi),
+                          alignment: Alignment.center,
+                          child: BookCoverFront(widget.listing),
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Icon(Icons.person, size: 16),
-                          SizedBox(width: 2),
-                          Text(
-                            'Superhost',
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                        ],
+                      Positioned.fill(
+                        child: BookCoverBack(widget.listing),
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: 30, right: 40),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(radius),
-                  bottomRight: Radius.circular(radius),
                 ),
-                color: Colors.white,
               ),
-              child: LandlordInfo(listing),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Slider(
+          min: 0,
+          max: 1,
+          value: _sliderValue,
+          onChanged: (value) => setState(() => _sliderValue = value),
+        )
+      ],
     );
   }
 }
