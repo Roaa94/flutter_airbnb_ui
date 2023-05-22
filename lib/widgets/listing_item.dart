@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_airbnb_ui/models/listing.dart';
+import 'package:flutter_airbnb_ui/widgets/book_flip.dart';
 
 class ListingItem extends StatelessWidget {
   const ListingItem({
@@ -18,12 +19,24 @@ class ListingItem extends StatelessWidget {
         children: [
           SizedBox(
             height: 300,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                listing.coverUrl,
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      listing.coverUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 25,
+                  left: 25,
+                  right: 0,
+                  child: BookFlip(listing),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 10),
