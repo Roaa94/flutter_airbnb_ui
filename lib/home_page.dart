@@ -15,11 +15,14 @@ class HomePage extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            const SearchField(),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: SearchField(),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: listings.length,
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 itemBuilder: (context, index) => ListingItem(
                   listing: listings[index],
                 ),
