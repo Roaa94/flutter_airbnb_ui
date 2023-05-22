@@ -56,6 +56,7 @@ class BookCoverFront extends StatelessWidget {
             child: Center(
               child: Avatar(
                 imageUrl: listing.landlordAvatarUrl,
+                hasInnerShadow: true,
                 size: 120,
               ),
             ),

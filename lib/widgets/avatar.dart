@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
@@ -6,11 +8,13 @@ class Avatar extends StatelessWidget {
     required this.imageUrl,
     this.size = 110,
     this.hasBadge = false,
+    this.hasInnerShadow = false,
   });
 
   final String imageUrl;
   final double size;
   final bool hasBadge;
+  final bool hasInnerShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +24,23 @@ class Avatar extends StatelessWidget {
           width: size,
           height: size,
           clipBehavior: Clip.hardEdge,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(imageUrl),
+              fit: BoxFit.cover,
+            ),
           ),
-          child: Image.asset(
-            imageUrl,
-            fit: BoxFit.cover,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: hasInnerShadow ? RadialGradient(
+                colors: [
+                  Colors.black.withOpacity(0),
+                  Colors.black.withOpacity(0.2),
+                ],
+                stops: const [0.9, 1],
+              ) : null,
+            ),
           ),
         ),
         if (hasBadge)
