@@ -26,13 +26,13 @@ class BookCoverBack extends StatelessWidget {
           bottomLeft: Radius.circular(Constants.bookBorderRadius),
         ),
         color: Colors.white,
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.black.withOpacity(0.2),
-        //     blurRadius: 8,
-        //     offset: const Offset(-8, 0),
-        //   ),
-        // ],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 5,
+            offset: const Offset(-6, 0),
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
