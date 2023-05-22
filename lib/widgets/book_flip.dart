@@ -36,40 +36,44 @@ class _BookFlipState extends State<BookFlip>
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 220),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            textDirection: TextDirection.rtl,
-            children: [
-              Expanded(
-                child: BookBack(widget.listing),
-              ),
-              Expanded(
-                child: Transform(
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(-pi * _sliderValue),
-                  alignment: Alignment.centerRight,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Transform(
-                          transform: Matrix4.identity()
-                            ..setEntry(3, 2, 0.001)
-                            ..rotateY(-pi),
-                          alignment: Alignment.center,
-                          child: BookCoverFront(widget.listing),
-                        ),
-                      ),
-                      Positioned.fill(
-                        child: BookCoverBack(widget.listing),
-                      ),
-                    ],
+        FractionalTranslation(
+          translation: Offset(-0.5 * _sliderValue, 0),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 220),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              textDirection: TextDirection.rtl,
+              children: [
+                Expanded(
+                  child: BookBack(widget.listing),
+                ),
+                Expanded(
+                  child: Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(-pi * _sliderValue),
+                    alignment: Alignment.centerRight,
+                    child: Stack(
+                      children: [
+                        _sliderValue <= 0.5
+                            ? Positioned.fill(
+                                child: BookCoverBack(widget.listing),
+                              )
+                            : Positioned.fill(
+                                child: Transform(
+                                  transform: Matrix4.identity()
+                                    ..setEntry(3, 2, 0.001)
+                                    ..rotateY(-pi),
+                                  alignment: Alignment.center,
+                                  child: BookCoverFront(widget.listing),
+                                ),
+                              ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Slider(

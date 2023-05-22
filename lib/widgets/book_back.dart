@@ -15,12 +15,19 @@ class BookBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 30, right: 40),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(Constants.bookBorderRadius),
           bottomRight: Radius.circular(Constants.bookBorderRadius),
         ),
         color: Colors.white,
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.black.withOpacity(0.2),
+        //     blurRadius: 8,
+        //     offset: const Offset(8, 0),
+        //   ),
+        // ],
       ),
       child: LandlordInfo(listing),
     );

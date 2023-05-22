@@ -20,12 +20,19 @@ class BookCoverBack extends StatelessWidget {
         left: 20,
         right: 10,
       ),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(Constants.bookBorderRadius),
           bottomLeft: Radius.circular(Constants.bookBorderRadius),
         ),
         color: Colors.white,
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.black.withOpacity(0.2),
+        //     blurRadius: 8,
+        //     offset: const Offset(-8, 0),
+        //   ),
+        // ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

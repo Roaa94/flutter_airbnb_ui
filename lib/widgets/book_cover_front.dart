@@ -26,6 +26,13 @@ class BookCoverFront extends StatelessWidget {
           bottomRight: Radius.circular(Constants.bookBorderRadius),
         ),
         color: Colors.grey.shade200,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(8, 0),
+          ),
+        ],
       ),
       alignment: Alignment.center,
       child: Avatar(
