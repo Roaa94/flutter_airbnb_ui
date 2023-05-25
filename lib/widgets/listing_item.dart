@@ -20,12 +20,18 @@ class ListingItem extends StatefulWidget {
 class _ListingItemState extends State<ListingItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
+  late final Animation<double> _curvedAnimation;
 
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
+    );
+
+    _curvedAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
     );
 
     super.initState();
@@ -111,10 +117,7 @@ class _ListingItemState extends State<ListingItem>
                         alignment: Alignment.bottomLeft,
                         child: BookFlip(
                           widget.listing,
-                          animationController: CurvedAnimation(
-                            parent: _animationController,
-                            curve: Curves.easeInOut,
-                          ),
+                          animationController: _curvedAnimation,
                         ),
                       ),
                     ),

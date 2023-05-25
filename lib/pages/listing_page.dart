@@ -66,7 +66,9 @@ class ListingPage extends StatelessWidget {
                       listing.infoItems.length,
                       (index) => Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
+                          horizontal: 20,
+                          vertical: 5,
+                        ),
                         child: Row(
                           children: [
                             Icon(
