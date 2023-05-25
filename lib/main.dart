@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_airbnb_ui/home_page.dart';
+import 'package:flutter_airbnb_ui/widgets/book_flip_demo.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

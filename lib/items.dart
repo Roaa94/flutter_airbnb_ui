@@ -41,7 +41,7 @@ const listings = [
       id: 1,
       coverUrl: 'assets/images/listing-1.jpg',
       landlordAvatarUrl: 'assets/images/person-1.jpeg',
-      landlordName: 'John',
+      landlordName: 'Jane',
       title: 'Bright apartment in vibrant neighborhood',
       address: 'Berlin, Germany',
       availability: 'May 9 - 14',
