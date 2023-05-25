@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airbnb_ui/models/listing.dart';
+import 'package:flutter_airbnb_ui/listing.dart';
 import 'package:flutter_airbnb_ui/pages/listing_page.dart';
 import 'package:flutter_airbnb_ui/widgets/book_flip.dart';
 

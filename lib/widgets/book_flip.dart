@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_airbnb_ui/models/listing.dart';
+import 'package:flutter_airbnb_ui/listing.dart';
 import 'package:flutter_airbnb_ui/widgets/book_back.dart';
 import 'package:flutter_airbnb_ui/widgets/book_cover_back.dart';
 import 'package:flutter_airbnb_ui/widgets/book_cover_front.dart';

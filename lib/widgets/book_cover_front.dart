@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_airbnb_ui/constants.dart';
-import 'package:flutter_airbnb_ui/models/listing.dart';
+import 'package:flutter_airbnb_ui/listing.dart';
 import 'package:flutter_airbnb_ui/widgets/avatar.dart';
 
 class BookCoverFront extends StatelessWidget {

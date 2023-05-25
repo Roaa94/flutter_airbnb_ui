@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airbnb_ui/models/listing.dart';
+import 'package:flutter_airbnb_ui/listing.dart';
 
 class LandlordInfo extends StatelessWidget {
   const LandlordInfo(
