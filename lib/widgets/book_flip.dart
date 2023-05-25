@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_airbnb_ui/constants.dart';
 import 'package:flutter_airbnb_ui/listing.dart';
 import 'package:flutter_airbnb_ui/widgets/book_back.dart';
 import 'package:flutter_airbnb_ui/widgets/book_cover_back.dart';
@@ -25,7 +26,7 @@ class BookFlip extends StatefulWidget {
 class _BookFlipState extends State<BookFlip>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  late final Animation<double> _curvedAnimation;
+  late final Animation<double> _animation;
   late final Animation<double> _flipAnimation;
   late final Animation<double> _scaleAnimation;
 
@@ -34,18 +35,18 @@ class _BookFlipState extends State<BookFlip>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: Constants.animationDuration,
       value: widget.initialFlipProgress,
     );
 
-    _curvedAnimation = CurvedAnimation(
+    _animation = CurvedAnimation(
       parent: widget.parentAnimation ?? _animationController,
       curve: Curves.easeOut,
     );
 
-    _flipAnimation = Tween<double>(begin: 1, end: 0).animate(_curvedAnimation);
+    _flipAnimation = Tween<double>(begin: 1, end: 0).animate(_animation);
     _scaleAnimation =
-        Tween<double>(begin: 0.45, end: 1).animate(_curvedAnimation);
+        Tween<double>(begin: 0.45, end: 1).animate(_animation);
   }
 
   @override
@@ -59,7 +60,7 @@ class _BookFlipState extends State<BookFlip>
     return Material(
       color: Colors.transparent,
       child: AnimatedBuilder(
-        animation: _curvedAnimation,
+        animation: _animation,
         builder: (context, child) {
           return Transform.scale(
             scale: _scaleAnimation.value,
@@ -78,7 +79,7 @@ class _BookFlipState extends State<BookFlip>
                     Expanded(
                       child: Transform(
                         transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.0015)
+                          ..setEntry(3, 2, Constants.perspectiveValue)
                           ..rotateY(-pi * _flipAnimation.value),
                         alignment: Alignment.centerRight,
                         child: Stack(
@@ -90,7 +91,7 @@ class _BookFlipState extends State<BookFlip>
                                 : Positioned.fill(
                                     child: Transform(
                                       transform: Matrix4.identity()
-                                        ..setEntry(3, 2, 0.001)
+                                        ..setEntry(3, 2, Constants.perspectiveValue)
                                         ..rotateY(-pi),
                                       alignment: Alignment.center,
                                       child: BookCoverFront(widget.listing),
