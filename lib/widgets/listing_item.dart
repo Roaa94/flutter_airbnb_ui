@@ -5,13 +5,37 @@ import 'package:flutter_airbnb_ui/pages/listing_page.dart';
 import 'package:flutter_airbnb_ui/widgets/book_flip.dart';
 import 'package:flutter_airbnb_ui/widgets/listing_info.dart';
 
-class ListingItem extends StatelessWidget {
+class ListingItem extends StatefulWidget {
   const ListingItem({
     super.key,
     required this.listing,
   });
 
   final Listing listing;
+
+  @override
+  State<ListingItem> createState() => _ListingItemState();
+}
+
+class _ListingItemState extends State<ListingItem>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +47,21 @@ class ListingItem extends StatelessWidget {
           SizedBox(
             height: 300,
             child: GestureDetector(
-              onTapDown: (_) {},
-              onTapUp: (_) => _openListingPage(context),
+              onTapDown: (_) {
+                _animationController.animateTo(0.33);
+              },
+              onTapUp: (_) {
+                _animationController.animateTo(0).then((value) {
+                  _openListingPage(context);
+                });
+              },
               child: Stack(
                 children: [
                   Positioned.fill(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        listing.coverUrl,
+                        widget.listing.coverUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -50,8 +80,43 @@ class ListingItem extends StatelessWidget {
                     left: 25,
                     right: 0,
                     child: Hero(
-                      tag: 'listing_hero_${listing.id}',
-                      child: BookFlip(listing),
+                      tag: 'listing_hero_${widget.listing.id}',
+                      flightShuttleBuilder: (
+                        BuildContext flightContext,
+                        Animation<double> animation,
+                        HeroFlightDirection flightDirection,
+                        BuildContext fromHeroContext,
+                        BuildContext toHeroContext,
+                      ) {
+                        final curvedAnimation = CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeInOut,
+                        );
+                        final scaleAnimation = Tween<double>(
+                          begin: Constants.bookInitialScale,
+                          end: 1,
+                        ).animate(curvedAnimation);
+
+                        return ScaleTransition(
+                          scale: scaleAnimation,
+                          alignment: Alignment.bottomLeft,
+                          child: BookFlip(
+                            widget.listing,
+                            animationController: curvedAnimation,
+                          ),
+                        );
+                      },
+                      child: Transform.scale(
+                        scale: Constants.bookInitialScale,
+                        alignment: Alignment.bottomLeft,
+                        child: BookFlip(
+                          widget.listing,
+                          animationController: CurvedAnimation(
+                            parent: _animationController,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -59,7 +124,7 @@ class ListingItem extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          ListingInfo(listing),
+          ListingInfo(widget.listing),
         ],
       ),
     );
@@ -71,7 +136,7 @@ class ListingItem extends StatelessWidget {
         transitionDuration: Constants.animationDuration,
         reverseTransitionDuration: Constants.animationDuration,
         pageBuilder: (BuildContext context, Animation<double> animation, _) {
-          return ListingPage(listing);
+          return ListingPage(widget.listing);
         },
         transitionsBuilder: (BuildContext context, Animation<double> animation,
             _, Widget child) {

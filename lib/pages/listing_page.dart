@@ -56,18 +56,6 @@ class ListingPage extends StatelessWidget {
                       padding: const EdgeInsets.all(20),
                       child: Hero(
                         tag: 'listing_hero_${listing.id}',
-                        flightShuttleBuilder: (
-                          BuildContext flightContext,
-                          Animation<double> animation,
-                          HeroFlightDirection flightDirection,
-                          BuildContext fromHeroContext,
-                          BuildContext toHeroContext,
-                        ) {
-                          return BookFlip(
-                            listing,
-                            parentAnimation: animation,
-                          );
-                        },
                         child: BookFlip(
                           listing,
                           initialFlipProgress: 1,

@@ -12,12 +12,12 @@ class BookFlip extends StatefulWidget {
     this.listing, {
     super.key,
     this.initialFlipProgress = 0,
-    this.parentAnimation,
+    this.animationController,
   });
 
   final Listing listing;
   final double initialFlipProgress;
-  final Animation<double>? parentAnimation;
+  final Animation<double>? animationController;
 
   @override
   State<BookFlip> createState() => _BookFlipState();
@@ -28,7 +28,6 @@ class _BookFlipState extends State<BookFlip>
   late final AnimationController _animationController;
   late final Animation<double> _animation;
   late final Animation<double> _flipAnimation;
-  late final Animation<double> _scaleAnimation;
 
   @override
   void initState() {
@@ -39,14 +38,13 @@ class _BookFlipState extends State<BookFlip>
       value: widget.initialFlipProgress,
     );
 
-    _animation = CurvedAnimation(
-      parent: widget.parentAnimation ?? _animationController,
-      curve: Curves.easeOut,
-    );
+    _animation = widget.animationController ??
+        CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.easeOut,
+        );
 
     _flipAnimation = Tween<double>(begin: 1, end: 0).animate(_animation);
-    _scaleAnimation =
-        Tween<double>(begin: 0.45, end: 1).animate(_animation);
   }
 
   @override
@@ -62,47 +60,44 @@ class _BookFlipState extends State<BookFlip>
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            alignment: Alignment.bottomLeft,
-            child: FractionalTranslation(
-              translation: Offset(-0.5 * _flipAnimation.value, 0),
-              child: Container(
-                constraints: const BoxConstraints(maxHeight: 220),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  textDirection: TextDirection.rtl,
-                  children: [
-                    Expanded(
-                      child: BookBack(widget.listing),
-                    ),
-                    Expanded(
-                      child: Transform(
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, Constants.perspectiveValue)
-                          ..rotateY(-pi * _flipAnimation.value),
-                        alignment: Alignment.centerRight,
-                        child: Stack(
-                          children: [
-                            _flipAnimation.value <= 0.5
-                                ? Positioned.fill(
-                                    child: BookCoverBack(widget.listing),
-                                  )
-                                : Positioned.fill(
-                                    child: Transform(
-                                      transform: Matrix4.identity()
-                                        ..setEntry(3, 2, Constants.perspectiveValue)
-                                        ..rotateY(-pi),
-                                      alignment: Alignment.center,
-                                      child: BookCoverFront(widget.listing),
-                                    ),
+          return FractionalTranslation(
+            translation: Offset(-0.5 * _flipAnimation.value, 0),
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 220),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                textDirection: TextDirection.rtl,
+                children: [
+                  Expanded(
+                    child: BookBack(widget.listing),
+                  ),
+                  Expanded(
+                    child: Transform(
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, Constants.perspectiveValue)
+                        ..rotateY(-pi * _flipAnimation.value),
+                      alignment: Alignment.centerRight,
+                      child: Stack(
+                        children: [
+                          _flipAnimation.value <= 0.5
+                              ? Positioned.fill(
+                                  child: BookCoverBack(widget.listing),
+                                )
+                              : Positioned.fill(
+                                  child: Transform(
+                                    transform: Matrix4.identity()
+                                      ..setEntry(
+                                          3, 2, Constants.perspectiveValue)
+                                      ..rotateY(-pi),
+                                    alignment: Alignment.center,
+                                    child: BookCoverFront(widget.listing),
                                   ),
-                          ],
-                        ),
+                                ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           );
