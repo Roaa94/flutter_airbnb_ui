@@ -4,13 +4,14 @@ Flutter implementation of the Airbnb book flip UI
 
 ### Preview
 
-https://github.com/Roaa94/flutter_airbnb_ui/assets/50345358/62ae8e90-740b-4acc-936c-0912cf1bd04f
+https://github.com/Roaa94/flutter_airbnb_ui/assets/50345358/c5a7103d-ed64-4053-814b-3220b92db170
+
 
 ### Implementation Details:
 
 The 3D-like book flip animation is implemented with Transform widgets for 3D rotation, and a Stack that conditionally shows the side of the book cover that should be visible on top as the rotation reaches halfway.
 
-<img width="300" src="https://github.com/Roaa94/flutter_airbnb_ui/assets/50345358/9aba508e-bb9c-4dde-9de6-ea40676341f9"/>
+<img width="300" src="https://github.com/Roaa94/flutter_airbnb_ui/assets/50345358/4847cfc5-657e-4649-8829-2d5b473c9950"/>
 
 
 ```dart
